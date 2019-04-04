@@ -70,21 +70,20 @@ class ContactHelper {
 
   Future<int> updateContact(Contact contact) async {
     Database dbContact = await db;
-    return await dbContact.update(contactTable, contact.toMap(),
-        where: "$idColumn =?", whereArgs: [contact.id]);
+    return await dbContact.update(contactTable,
+        contact.toMap(),
+        where: "$idColumn = ?",
+        whereArgs: [contact.id]);
   }
 
   Future<List> getAllContacts() async {
     Database dbContact = await db;
-
-    List listMap = await dbContact.rawQuery("SELECT *FROM $contactTable");
-   List<Contact> listContact = List();
-
-   for(Map m in listMap){
+    List listMap = await dbContact.rawQuery("SELECT * FROM $contactTable");
+    List<Contact> listContact = List();
+    for(Map m in listMap){
       listContact.add(Contact.fromMap(m));
-   }
-
-   return listContact;
+    }
+    return listContact;
   }
   
  Future<int>  getNumber() async{
